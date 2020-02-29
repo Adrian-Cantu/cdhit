@@ -1667,7 +1667,9 @@ void Sequence::PrintInfo( int id, FILE *fout, const Options & options, char *buf
 	const char *tag = options.isEST ? "nt" : "aa";
 	bool print = options.print != 0;
 	bool strand = options.isEST;
-	fprintf( fout, "%i\t%i%s, >%s...", id, size, tag, identifier+1 );
+	identifier[strcspn(identifier, "\r\n")] = 0;
+//	fprintf( fout, "%i\t%i%s, >  %s  ...", id, size, tag, identifier );
+	fprintf( fout, "%i\t%i%s\t%s\t", id, size, tag, identifier+1 );
 	if( identity ){
 		int *c = coverage;
 		fprintf( fout, " at " );
@@ -1758,9 +1760,9 @@ void SequenceDB::Readgz( const char *file, const Options & options )
             int i = 0;
             if( des.data[i] == '>' || des.data[i] == '@' || des.data[i] == '+' ) i += 1;
             if( des.data[i] == ' ' or des.data[i] == '\t' ) i += 1;
-            if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
+//if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
             while( i < des.size and ! isspace( des.data[i] ) ) i += 1;
-            des.data[i] = 0;
+//            des.data[i] = 0;
             one.identifier = des.data;
         } else {
             one.tot_length += strlen(buffer);  one += buffer;
@@ -1857,9 +1859,9 @@ void SequenceDB::Read( const char *file, const Options & options )
             int i = 0;
             if( des.data[i] == '>' || des.data[i] == '@' || des.data[i] == '+' ) i += 1;
             if( des.data[i] == ' ' or des.data[i] == '\t' ) i += 1;
-            if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
+//       if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
             while( i < des.size and ! isspace( des.data[i] ) ) i += 1;
-            des.data[i] = 0;
+//            des.data[i] = 0;
             one.identifier = des.data;
         } else {
             one.tot_length += strlen(buffer);  one += buffer;
@@ -1995,9 +1997,9 @@ void SequenceDB::Readgz( const char *file, const char *file2, const Options & op
             int i = 0;
             if( des.data[i] == '>' || des.data[i] == '@' || des.data[i] == '+' ) i += 1;
             if( des.data[i] == ' ' or des.data[i] == '\t' ) i += 1;
-            if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
+//           if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
             while( i < des.size and ! isspace( des.data[i] ) ) i += 1;
-            des.data[i] = 0;                   // find first non-space letter
+//            des.data[i] = 0;                   // find first non-space letter
             one.identifier = des.data;
 
             // R2
@@ -2155,9 +2157,9 @@ void SequenceDB::Read( const char *file, const char *file2, const Options & opti
             int i = 0;
             if( des.data[i] == '>' || des.data[i] == '@' || des.data[i] == '+' ) i += 1;
             if( des.data[i] == ' ' or des.data[i] == '\t' ) i += 1;
-            if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
+//           if( options.des_len and options.des_len < des.size ) des.size = options.des_len;
             while( i < des.size and ! isspace( des.data[i] ) ) i += 1;
-            des.data[i] = 0;                   // find first non-space letter
+//            des.data[i] = 0;                   // find first non-space letter
             one.identifier = des.data;
 
             // R2
