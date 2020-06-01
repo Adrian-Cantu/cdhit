@@ -1669,18 +1669,19 @@ void Sequence::PrintInfo( int id, FILE *fout, const Options & options, char *buf
 	bool strand = options.isEST;
 	identifier[strcspn(identifier, "\r\n")] = 0;
 //	fprintf( fout, "%i\t%i%s, >  %s  ...", id, size, tag, identifier );
-	fprintf( fout, "%i\t%i%s\t%s\t", id, size, tag, identifier+1 );
+
 	if( identity ){
-		int *c = coverage;
+/*		int *c = coverage;
 		fprintf( fout, " at " );
 		if (print) fprintf( fout, "%i:%i:%i:%i/", c[0], c[1], c[2], c[3] );
 		if (strand) fprintf( fout, "%c/", (state & IS_MINUS_STRAND) ? '-' : '+' );
 		fprintf( fout, "%.2f%%", identity*100 );
 		if( options.useDistance ) fprintf( fout, "/%.2f%%", distance*100 );
 		fprintf( fout, "\n" );
-	}else{
-		fprintf( fout, " *\n" );
+*/	}else{
+		fprintf( fout, "*" );
 	}
+	fprintf( fout, "%s\n", identifier+1 );
 }
 
 // by liwz gzip version 2019-02
